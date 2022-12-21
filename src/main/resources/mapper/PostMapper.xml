@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.crudboard.domain.post.PostMapper">
+
+    <!-- 전체 컬럼 -->
+    <sql id="postColumns">
+        id,
+        title,
+        content,
+        writer,
+        viewer,
+        is_notice,
+        is_deleted,
+        created_date,
+        modified_date
+    </sql>
+
+    <!-- 게시글 저장 -->
+    <insert id="save" parameterType="com.example.crudboard.domain.post.PostRequest">
+        INSERT INTO board (
+            <include refid="postColumns" />
+        ) VALUES (
+            #{id},
+            #{title},
+            #{content},
+            #{writer},
+            0,
+            #{is_notice},
+            0,
+            NOW(),
+            NULL
+        )
+    </insert>
+
+    <!-- 게시글 상세정보 조회 -->
+    <select id="findById" parameterType="long" resultType="com.example.crudboard.domain.post.PostResponse">
+        SELECT
+            <include refid="postColumns" />
+        FROM
+            board
+        WHERE
+            id = #{value}
+    </select>
+
+    <!-- 게시글 수정 -->
+    <update id="update" parameterType="com.example.crudboard.domain.post.PostRequest">
+        UPDATE
+            board
+        SET
+            modified_date = NOW(),
+            title = #{title},
+            content = #{content},
+            writer = #{writer},
+            is_notice = #{is_notice}
+        WHERE
+            id = #{id}
+    </update>
+
+    <!-- 게시글 삭제 -->
+    <delete id="deleteById" parameterType="long">
+        UPDATE
+            board
+        SET
+            is_deleted = 1
+        WHERE
+            id = #{id}
+    </delete>
+
+    <!-- 게시글 목록 조회 -->
+    <select id="findAll" resultType="com.example.crudboard.domain.post.PostResponse">
+        SELECT
+            <include refid="postColumns" />
+        FROM
+            board
+        WHERE
+            is_deleted = 0
+        ORDER BY
+            id DESC
+    </select>
+
+</mapper>
