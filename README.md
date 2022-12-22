@@ -1,7 +1,7 @@
 # CRUD-Board
 
 Simple crud board<br>
-DCinside clone coding
+dcinside clone coding
 
 ## Version
 

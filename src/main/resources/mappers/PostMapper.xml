@@ -9,6 +9,7 @@
         title,
         content,
         writer,
+        password,
         viewer,
         is_notice,
         is_deleted,
@@ -17,7 +18,7 @@
     </sql>
 
     <!-- 게시글 저장 -->
-    <insert id="save" parameterType="com.example.crudboard.domain.post.PostRequest">
+    <insert id="save" parameterType="com.example.crudboard.domain.post.PostRequest" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO board (
             <include refid="postColumns" />
         ) VALUES (
@@ -25,6 +26,7 @@
             #{title},
             #{content},
             #{writer},
+            #{password},
             0,
             #{is_notice},
             0,

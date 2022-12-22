@@ -24,6 +24,7 @@ public class PostMapperTest {
         params.setTitle("1번 게시글 제목");
         params.setContent("1번 게시글 내용");
         params.setWriter("테스터");
+        params.setPassword("0000");
         params.setIs_notice(false);
         postMapper.save(params);
 
