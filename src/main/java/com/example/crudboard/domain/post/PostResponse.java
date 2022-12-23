@@ -14,8 +14,8 @@ public class PostResponse {
     private String password; // 비밀번호
     private int viewer; // 조회수
     private Boolean isNotice; // 공지글 여부
-    private Boolean is_deleted; // 삭제 여부
-    private LocalDateTime created_date; // 작성일시
-    private LocalDateTime modified_date; // 수정일시
+    private Boolean isDeleted; // 삭제 여부
+    private LocalDateTime createdDate; // 작성일시
+    private LocalDateTime modifiedDate; // 수정일시
 
 }
