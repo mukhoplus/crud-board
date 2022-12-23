@@ -28,7 +28,7 @@
             #{writer},
             #{password},
             0,
-            #{is_notice},
+            #{isNotice},
             0,
             NOW(),
             NULL
@@ -54,7 +54,7 @@
             title = #{title},
             content = #{content},
             writer = #{writer},
-            is_notice = #{is_notice}
+            is_notice = #{isNotice}
         WHERE
             id = #{id}
     </update>

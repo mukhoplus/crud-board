@@ -12,6 +12,6 @@ public class PostRequest {
     private String content; // 내용
     private String writer; // 작성자
     private String password; // 비밀번호
-    private Boolean is_notice; // 공지글 여부
+    private Boolean isNotice; // 공지글 여부
 
 }

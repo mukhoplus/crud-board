@@ -13,7 +13,7 @@ public class PostResponse {
     private String writer; // 작성자
     private String password; // 비밀번호
     private int viewer; // 조회수
-    private Boolean is_notice; // 공지글 여부
+    private Boolean isNotice; // 공지글 여부
     private Boolean is_deleted; // 삭제 여부
     private LocalDateTime created_date; // 작성일시
     private LocalDateTime modified_date; // 수정일시

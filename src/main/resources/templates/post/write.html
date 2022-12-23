@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/basic">
 <th:block layout:fragment="title">
-    <title>Mukho-글쓰기</title>
+    <title>묵호 갤러리</title>
 </th:block>
 
 <th:block layout:fragment="content">
     <div class="page_tits">
         <h3>게시판 관리</h3>
-        <p class="path"><strong>현재 위치 :</strong> <span>게시판 관리</span> <span>리스트형</span> <span>글작성</span></p>
+        <p class="path"><strong>현재 위치 :</strong> <span>게시판 관리</span> <span>리스트형</span> <span>글쓰기</span></p>
     </div>
 
     <div class="content">
@@ -18,6 +18,7 @@
 
                 <!--/* 서버로 전달할 공지글 여부 */-->
                 <input type="hidden" id="is_notice" name="is_notice" />
+
                 <table class="tb tb_row">
                     <colgroup>
                         <col style="width:15%;" /><col style="width:35%;" /><col style="width:15%;" /><col style="width:35%;" />
@@ -28,7 +29,7 @@
                         <td><span class="chkbox"><input type="checkbox" id="isNotice" name="isNotice" class="chk" /><i></i><label for="isNotice"> 설정</label></span></td>
 
                         <th scope="row">등록일</th>
-                        <td colspan="3"><input type="text" id="createdDate" name="createdDate" readonly /></td>
+                        <td colspan="3"><input type="text" id="created_date" name="created_date" readonly /></td>
                     </tr>
 
                     <tr>
@@ -70,7 +71,7 @@
 
             // 등록일 초기화
             function initCreatedDate() {
-                document.getElementById('createdDate').value = dayjs().format('YYYY-MM-DD');
+                document.getElementById('created_date').value = dayjs().format('YYYY-MM-DD');
             }
 
             // 게시글 저장(수정)
@@ -85,6 +86,9 @@
 
                 document.getElementById('saveBtn').disabled = true;
                 form.is_notice.value = form.isNotice.checked;
+                if(form.is_notice.value === undefined || form.is_notice.value === null){
+                    form.is_notice.value = false;
+                }
                 form.action = [[ ${post == null} ]] ? '/post/save.do' : '/post/update.do';
                 form.submit();
             }
