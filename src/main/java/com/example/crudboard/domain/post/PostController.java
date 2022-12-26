@@ -30,7 +30,6 @@ public class PostController {
             PostResponse post = postService.findPostById(id);
             model.addAttribute("post", post);
         }
-
         return "post/write";
     }
 
@@ -41,7 +40,7 @@ public class PostController {
             params.setIsNotice(false);
         }
         postService.savePost(params);
-        return "redirect:/post/list.do";
+        return "redirect:/post/view.do?id="+params.getId();
     }
 
     // 글 읽기
@@ -50,5 +49,22 @@ public class PostController {
         PostResponse post = postService.findPostById(id);
         model.addAttribute("post", post);
         return "post/view";
+    }
+
+    // 글 수정
+    @PostMapping("/post/update.do")
+    public String updatePost(final PostRequest params){
+        if(params.getIsNotice() == null){
+            params.setIsNotice(false);
+        }
+        postService.updatePost(params);
+        return "redirect:/post/view.do?id="+params.getId();
+    }
+
+    // 글 삭제
+    @PostMapping("/post/delete.do")
+    public String deletePost(@RequestParam final Long id) {
+        postService.deletePost(id);
+        return "redirect:/post/list.do";
     }
 }

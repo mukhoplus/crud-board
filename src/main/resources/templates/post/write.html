@@ -66,12 +66,31 @@
         /*<![CDATA[*/
 
             window.onload = () => {
-                initCreatedDate();
+                renderPostInfo();
             }
 
             // 등록일 초기화
             function initCreatedDate() {
                 document.getElementById('createdDate').value = dayjs().format('YYYY-MM-DD');
+            }
+
+            // 게시글 읽기 랜더링
+            function renderPostInfo() {
+              const post = [[ ${post} ]];
+
+              if ( !post ) {
+                initCreatedDate();
+                return false;
+              }
+
+              const form = document.getElementById('saveForm');
+              const fields = ['id', 'title', 'content', 'writer', 'is_notice'];
+              form.isNotice.checked = post.is_notice;
+              form.createdDate.value = dayjs(post.createdDate).format('YYYY-MM-DD HH:mm');
+
+              fields.forEach(field => {
+                form[field].value = post[field];
+              })
             }
 
             // 게시글 저장(수정)
@@ -84,12 +103,16 @@
                     isValid(fields[i], fieldNames[i]);
                 }
 
-                document.getElementById('saveBtn').disabled = true;
-                form.is_notice.value = form.isNotice.checked;
-                form.action = [[ ${post == null} ]] ? '/post/save.do' : '/post/update.do';
-                form.submit();
+                // 수정시 비밀번호가 맞지 않을 경우
+                if([[ ${post != null} ]] && [[ ${post?.password} ]] != form.password.value){
+                    alert("비밀번호가 맞지 않습니다. 다시 시도해주세요.");
+                } else{ // 그 외의 모든 경우
+                    document.getElementById('saveBtn').disabled = true;
+                    form.is_notice.value = form.isNotice.checked;
+                    form.action = [[ ${post == null} ]] ? '/post/save.do' : '/post/update.do';
+                    form.submit();
+                }
             }
-
         /*]]>*/
         </script>
 </th:block>
