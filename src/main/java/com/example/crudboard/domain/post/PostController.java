@@ -43,4 +43,12 @@ public class PostController {
         postService.savePost(params);
         return "redirect:/post/list.do";
     }
+
+    // 글 읽기
+    @GetMapping("/post/view.do")
+    public String openPostView(@RequestParam final Long id, Model model){
+        PostResponse post = postService.findPostById(id);
+        model.addAttribute("post", post);
+        return "post/view";
+    }
 }
