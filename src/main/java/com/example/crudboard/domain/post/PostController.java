@@ -40,7 +40,8 @@ public class PostController {
             params.setIsNotice(false);
         }
         postService.savePost(params);
-        return "redirect:/post/view.do?id="+params.getId();
+        return "redirect:/post/list.do";
+        //return "redirect:/post/view.do?id="+params.getId();
     }
 
     // 글 읽기
@@ -58,7 +59,8 @@ public class PostController {
             params.setIsNotice(false);
         }
         postService.updatePost(params);
-        return "redirect:/post/view.do?id="+params.getId();
+        return "redirect:/post/list.do";
+        //return "redirect:/post/view.do?id="+params.getId();
     }
 
     // 글 삭제
