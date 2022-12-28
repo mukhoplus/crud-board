@@ -15,6 +15,11 @@ public class PostController {
 
     private final PostService postService;
 
+    @GetMapping("/") // 메인이 없기 때문에 바로 리스트 페이지로 리다이렉트
+    public String redirectList() {
+        return "redirect:/post/list.do";
+    }
+
     // 게시글 목록 페이지
     @GetMapping("/post/list.do")
     public String openPostList(Model model) {
