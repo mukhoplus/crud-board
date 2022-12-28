@@ -16,6 +16,9 @@ public interface PostMapper {
     // 게시글 조회
     PostResponse findById(Long id);
 
+    // 조회수 증가
+    public boolean addViewer(final Long id);
+
     // 게시글 수정
     void update(PostRequest params);
 

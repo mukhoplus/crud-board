@@ -45,6 +45,16 @@
             id = #{value}
     </select>
 
+    <!-- 조회수 증가 -->
+    <update id="addViewer" parameterType="long">
+        UPDATE
+            board
+        SET
+            viewer = viewer + 1
+        WHERE
+            id = #{id}
+    </update>
+
     <!-- 게시글 수정 -->
     <update id="update" parameterType="com.example.crudboard.domain.post.PostRequest">
         UPDATE

@@ -47,6 +47,7 @@ public class PostController {
     // 글 읽기
     @GetMapping("/post/view.do")
     public String openPostView(@RequestParam final Long id, Model model){
+        postService.addViewer(id); // 조회수 증가
         PostResponse post = postService.findPostById(id);
         model.addAttribute("post", post);
         return "post/view";
