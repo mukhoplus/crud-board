@@ -1,4 +1,4 @@
-# CRUD-Board
+# CRUD Board
 
 Simple crud board<br>
 dcinside clone? coding
