@@ -24,9 +24,6 @@ public class PostService {
         return postMapper.findById(id);
     }
 
-    // 조회수 증가
-    public boolean addViewer(final Long id) { return postMapper.addViewer(id); }
-
     // 게시글 목록 조회
     public List<PostResponse> findAllPost(){
         return postMapper.findAll();
@@ -43,6 +40,11 @@ public class PostService {
     public Long deletePost(final Long id){
         postMapper.deleteById(id);
         return id;
+    }
+
+    // 조회수 증가
+    public boolean addViewer(final Long id) {
+        return postMapper.addViewer(id);
     }
 
 }

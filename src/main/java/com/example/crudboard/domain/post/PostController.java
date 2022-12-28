@@ -47,7 +47,7 @@ public class PostController {
     // 글 읽기
     @GetMapping("/post/view.do")
     public String openPostView(@RequestParam final Long id, Model model){
-        postService.addViewer(id); // 조회수 증가
+        postService.addViewer(id); // 조회수 증가 -> DB에 조회수 값을 미리 증가시킨 후, 클라이언트에게 보여질 post 객체를 생성한다.
         PostResponse post = postService.findPostById(id);
         model.addAttribute("post", post);
         return "post/view";
