@@ -1,5 +1,6 @@
 package com.example.crudboard.domain.post;
 
+import com.example.crudboard.common.dto.SearchDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface PostMapper {
     void save(PostRequest params);
 
     // 게시글 리스트
-    List<PostResponse> findAll();
+    List<PostResponse> findAll(SearchDto params);
 
     // 게시글 조회
     PostResponse findById(Long id);
@@ -26,6 +27,6 @@ public interface PostMapper {
     void deleteById(Long id);
 
     // 게시글 수
-    int count();
+    int count(SearchDto params);
 
 }

@@ -70,7 +70,7 @@
     </delete>
 
     <!-- 게시글 목록 조회 -->
-    <select id="findAll" resultType="com.example.crudboard.domain.post.PostResponse">
+    <select id="findAll" parameterType="com.example.crudboard.common.dto.SearchDto" resultType="com.example.crudboard.domain.post.PostResponse">
         SELECT
             <include refid="postColumns" />
         FROM
@@ -79,16 +79,27 @@
             is_deleted = 0
         ORDER BY
             id DESC
+        LIMIT #{pagination.limitStart}, #{recordSize}
     </select>
 
     <!-- 조회수 증가 -->
     <update id="addViewer" parameterType="long">
         UPDATE
-        board
+            board
         SET
-        viewer = viewer + 1
+            viewer = viewer + 1
         WHERE
-        id = #{id}
+            id = #{id}
     </update>
+
+    <!-- 게시글 수 -->
+    <select id="count" parameterType="com.example.crudboard.common.dto.SearchDto" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            board
+        WHERE
+            is_deleted = 0
+    </select>
 
 </mapper>

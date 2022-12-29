@@ -1,9 +1,13 @@
 package com.example.crudboard.domain.post;
 
+import com.example.crudboard.common.dto.SearchDto;
+import com.example.crudboard.paging.Pagination;
+import com.example.crudboard.paging.PagingResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -25,8 +29,17 @@ public class PostService {
     }
 
     // 게시글 목록 조회
-    public List<PostResponse> findAllPost(){
-        return postMapper.findAll();
+    public PagingResponse<PostResponse> findAllPost(final SearchDto params){
+        int count = postMapper.count(params);
+        if(count < 1){
+            return new PagingResponse<>(Collections.emptyList(), null);
+        }
+
+        Pagination pagination = new Pagination(count, params);
+        params.setPagination(pagination);
+
+        List<PostResponse> list = postMapper.findAll(params);
+        return new PagingResponse<>(list, pagination);
     }
 
     // 게시글 수정
