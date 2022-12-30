@@ -42,6 +42,20 @@ public class PostService {
         return new PagingResponse<>(list, pagination);
     }
 
+    // 순차글 목록 조회
+    public PagingResponse<PostResponse> findAllLinear(final SearchDto params){
+        int count = postMapper.count(params);
+        if(count < 1){
+            return new PagingResponse<>(Collections.emptyList(), null);
+        }
+
+        Pagination pagination = new Pagination(count, params);
+        params.setPagination(pagination);
+
+        List<PostResponse> list = postMapper.findAllLinear(params);
+        return new PagingResponse<>(list, pagination);
+    }
+
     // 게시글 수정
     @Transactional
     public Long updatePost(final PostRequest params) {

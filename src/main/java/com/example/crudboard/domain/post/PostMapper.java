@@ -14,6 +14,9 @@ public interface PostMapper {
     // 게시글 리스트
     List<PostResponse> findAll(SearchDto params);
 
+    // 순차글 리스트
+    List<PostResponse> findAllLinear(SearchDto params);
+
     // 게시글 조회
     PostResponse findById(Long id);
 

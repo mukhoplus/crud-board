@@ -85,7 +85,7 @@
 
               const form = document.getElementById('saveForm');
               const fields = ['id', 'title', 'content', 'writer', 'is_notice'];
-              form.isNotice.checked = post.is_notice;
+              form.isNotice.checked = post.isNotice;
               form.createdDate.value = dayjs(post.createdDate).format('YYYY-MM-DD HH:mm');
 
               fields.forEach(field => {

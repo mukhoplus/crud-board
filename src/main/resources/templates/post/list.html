@@ -62,70 +62,59 @@
     </div> <!--/* .content */-->
 </th:block>
 <th:block layout:fragment="script">
-    <script th:inline="javascript">
+</th:block>
+</html>
+<script th:inline="javascript">
     /*<![CDATA[*/
 
     window.onload = () => {
-      setQueryStringParams();
-      findAllPost();
+        setQueryStringParams();
+        findAllPost();
     }
 
     // 게시글 리스트 조회
     function findAllPost() {
-      const list = [[ ${response.list} ]];
-      if ( !list.length ) {
-        document.getElementById('list').innerHTML = '<td colspan="6"><div className="no_data_msg">검색된 결과가 없습니다.</div></td>';
-        drawPage();
-      }
+        const list = [[ ${response.list} ]];
+        if ( !list.length ) {
+            document.getElementById('list').innerHTML = '<td colspan="6"><div className="no_data_msg">검색된 결과가 없습니다.</div></td>';
+            drawPage();
+        }
 
-      const pagination = [[ ${response.pagination} ]];
-      const params = [[ ${params} ]];
-      let num = pagination.totalRecordCount - ((params.page - 1) * params.recordSize);
+        const pagination = [[ ${response.pagination} ]];
+        const params = [[ ${params} ]];
+        let num = pagination.totalRecordCount - ((params.page - 1) * params.recordSize);
+        const LinearList = [[ ${responseLinear.list} ]];
+        let indexDic = {};
 
-      drawList(list, num);
-      drawPage(pagination, params);
+        let cnt = LinearList.length;
+        LinearList.forEach(row => {
+            if(row.isNotice === false) indexDic[row.id] = cnt;
+            else indexDic[row.id] = '공지';
+            cnt--;
+        });
+
+        drawList(list, indexDic);
+        drawPage(pagination, params);
     }
 
     // 리스트 HTML draw
-    function drawList(list, num) {
-      let html = '';
-      let htmlNotice = '';
-      let htmlNormal = '';
+    function drawList(list, indexDic) {
+        let html = '';
 
-      /*
-      * 원하는 동작: 각 페이지에서 공지를 상단에 두고, 일반글로 나머지를 채움
-      * 실제 동작: 10개씩 페이징되고, 10개 중 공지를 상단에 둠
-      */
-      list.forEach(row => {
-        if(row.isNotice === true){
-            htmlNotice += `
+        list.forEach(row => {
+            const number = indexDic[row.id];
+            html += `
                 <tr>
                     <td><input type="checkbox" /></td>
-                    <td>공지</td>
+                    <td>${number}</td>
                     <td class="tl"><a href="javascript:void(0);" onclick="goViewPage(${row.id});">${row.title}</a></td>
                     <td>${row.writer}</td>
                     <td>${dayjs(row.createdDate).format('YYYY-MM-DD HH:mm')}</td>
                     <td>${row.viewer}</td>
                 </tr>
             `;
-        }
-        else{
-            htmlNormal += `
-                <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>${row.isNotice === false ? num : '공지'}</td>
-                    <td class="tl"><a href="javascript:void(0);" onclick="goViewPage(${row.id});">${row.title}</a></td>
-                    <td>${row.writer}</td>
-                    <td>${dayjs(row.createdDate).format('YYYY-MM-DD HH:mm')}</td>
-                    <td>${row.viewer}</td>
-                </tr>
-            `;
-        }
-        num--;
-      });
-
-      html = htmlNotice + htmlNormal;
-      document.getElementById('list').innerHTML = html;
+        });
+        document.getElementById('list').innerHTML = html;
     }
 
     // 페이지 HTML draw
@@ -199,5 +188,3 @@
     }
     /*]]>*/
   </script>
-</th:block>
-</html>

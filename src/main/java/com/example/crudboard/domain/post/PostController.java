@@ -25,7 +25,10 @@ public class PostController {
     @GetMapping("/post/list.do")
     public String openPostList(@ModelAttribute("params") final SearchDto params, Model model) {
         PagingResponse<PostResponse> response = postService.findAllPost(params);
+        PagingResponse<PostResponse> responseLinear = postService.findAllLinear(params);
         model.addAttribute("response", response);
+        model.addAttribute("responseLinear", responseLinear);
+
         return "post/list";
     }
 
